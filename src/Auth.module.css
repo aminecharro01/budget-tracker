@@ -14,7 +14,8 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 2rem;
-  width: 100%;
+  width: calc(100% - 2rem);
+  margin: 1rem;
   max-width: 400px;
   box-shadow: var(--glass-shadow);
   text-align: center;

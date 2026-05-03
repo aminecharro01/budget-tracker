@@ -18,7 +18,13 @@ export function fmt(n) {
 export function BudgetProvider({ children }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] = useState(() => localStorage.getItem('budget_lang') || 'en');
   
+  useEffect(() => {
+    localStorage.setItem('budget_lang', language);
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+  }, [language]);
+
   // Data State
   const [bills, setBills] = useState([]);
   const [records, setRecords] = useState({});
@@ -278,6 +284,8 @@ export function BudgetProvider({ children }) {
   const value = useMemo(() => ({
     session,
     loading,
+    language,
+    setLanguage,
     bills,
     records,
     transactions,
@@ -290,7 +298,7 @@ export function BudgetProvider({ children }) {
     getPreviousMalakRemaining,
     computeMetrics,
     signOut: () => supabase.auth.signOut()
-  }), [session, loading, bills, records, transactions, saveInitial, saveBill, deleteBill, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining, computeMetrics]);
+  }), [session, loading, language, bills, records, transactions, saveInitial, saveBill, deleteBill, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining, computeMetrics]);
 
   return (
     <BudgetContext.Provider value={value}>

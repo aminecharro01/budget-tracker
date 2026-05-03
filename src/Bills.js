@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styles from './Bills.module.css';
 import { useBudget, fmt } from './BudgetContext';
+import { t } from './i18n';
 
 export default function Bills() {
-  const { bills, saveBill, deleteBill } = useBudget();
+  const { bills, saveBill, deleteBill, language } = useBudget();
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -23,24 +24,24 @@ export default function Bills() {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Recurring bills</h1>
+        <h1 className={styles.title}>{t(language, 'recurring_bills')}</h1>
         <button type="button" className={styles.cta} onClick={() => setShowForm(!showForm)}>
-          {showForm ? 'Close' : '+ Add bill'}
+          {showForm ? t(language, 'close') : t(language, 'add_bill')}
         </button>
       </div>
 
       {showForm && (
         <div className={styles.form}>
           <div className={styles.field}>
-            <label htmlFor="bname">Name</label>
-            <input id="bname" value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Rent" />
+            <label htmlFor="bname">{t(language, 'bill_name')}</label>
+            <input id="bname" value={name} onChange={(e) => setName(e.target.value)} placeholder="..." />
           </div>
           <div className={styles.field}>
-            <label htmlFor="bamt">Amount</label>
+            <label htmlFor="bamt">{t(language, 'tx_amount')}</label>
             <input id="bamt" type="text" inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="0" />
           </div>
           <button type="button" className={styles.save} onClick={handleSaveBill}>
-            Save bill
+            {t(language, 'save_bill')}
           </button>
         </div>
       )}
@@ -63,7 +64,7 @@ export default function Bills() {
 
       <div className={styles.summary}>
         <div className={styles.sumRow}>
-          <span>All recurring bills</span>
+          <span>{t(language, 'total_all_bills')}</span>
           <strong style={{ fontFamily: 'var(--mono)' }}>{fmt(total)}</strong>
         </div>
       </div>

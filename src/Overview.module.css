@@ -91,7 +91,7 @@
 
 .formRow input {
   width: 100%;
-  max-width: 280px;
+  max-width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: var(--radius);
   border: 1px solid var(--border2);
@@ -111,7 +111,7 @@
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 1rem;
   margin-bottom: 1.75rem;
 }
@@ -289,7 +289,7 @@
 
 .txForm select {
   width: 100%;
-  max-width: 280px;
+  max-width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: var(--radius);
   border: 1px solid var(--border2);

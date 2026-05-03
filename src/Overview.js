@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Overview.module.css';
 import { useBudget, fmt } from './BudgetContext';
+import { t } from './i18n';
 
 function MetricCard({ label, value, subtitle, positive, negative, highlight }) {
   const color = negative ? 'var(--red)' : positive ? 'var(--green)' : 'var(--blue)';
@@ -45,7 +46,7 @@ function Row({ label, value, positive, negative, bold, badge, color, checked, on
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function Overview({ year, month, onMonthChange }) {
-  const { bills, computeMetrics, saveInitial, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining } = useBudget();
+  const { bills, computeMetrics, saveInitial, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining, language } = useBudget();
   const metrics = computeMetrics(year, month);
   const { acc, malakRemaining, wih, k, r, paidBills, transactions, initialAcc, initialMalak, hasRecord } = metrics;
 
@@ -81,14 +82,12 @@ export default function Overview({ year, month, onMonthChange }) {
 
   const label = `${MONTHS[month]} ${year}`;
 
-  // Calculate Daily Budget
   const today = new Date();
   let daysLeft = 0;
   if (today.getFullYear() === year && today.getMonth() === month) {
     const lastDay = new Date(year, month + 1, 0).getDate();
-    daysLeft = lastDay - today.getDate() + 1; // +1 includes today
+    daysLeft = lastDay - today.getDate() + 1;
   } else if (today.getFullYear() < year || (today.getFullYear() === year && today.getMonth() < month)) {
-    // Future month
     daysLeft = new Date(year, month + 1, 0).getDate();
   }
   
@@ -115,56 +114,56 @@ export default function Overview({ year, month, onMonthChange }) {
           </button>
         </div>
         <button type="button" className={styles.cta} onClick={() => setShowForm(!showForm)}>
-          {showForm ? 'Close' : 'Set Initial Amounts'}
+          {showForm ? t(language, 'close') : t(language, 'set_initial')}
         </button>
       </div>
 
       {(isLowBalance || isZeroBalance) && (
         <div className={`${styles.warningBanner} ${isZeroBalance ? styles.warningCritical : ''}`}>
-          ⚠️ {isZeroBalance ? 'Critical: R* is zero or negative! Avoid spending.' : `Warning: Approaching your K* limit! (R* is lower than unpaid bills: ${fmt(k)})`}
+          ⚠️ {isZeroBalance ? t(language, 'warn_critical') : t(language, 'warn_low', { k: fmt(k) })}
         </div>
       )}
 
-      {showForm && (
+      {!hasRecord || showForm ? (
         <div className={styles.formPanel}>
-          <p className={styles.formTitle}>Set Initial Month Balances</p>
+          <p className={styles.formTitle}>{t(language, 'set_initial')}</p>
           <div className={styles.formRow}>
-            <label htmlFor="acc">Initial Account Balance</label>
-            <span className={styles.fieldHint}>Total starting money: your income + Malak's starting pool</span>
+            <label htmlFor="acc">{t(language, 'init_acc')}</label>
+            <span className={styles.fieldHint}>{t(language, 'init_acc_hint')}</span>
             <input id="acc" type="text" inputMode="decimal" value={accInput} onChange={(e) => setAccInput(e.target.value)} placeholder="0" />
           </div>
           <div className={styles.formRow}>
-            <label htmlFor="malak">Initial Malak Pool</label>
-            <span className={styles.fieldHint}>How much of the starting money belongs to Malak</span>
+            <label htmlFor="malak">{t(language, 'init_savings')}</label>
+            <span className={styles.fieldHint}>{t(language, 'init_savings_hint')}</span>
             <input id="malak" type="text" inputMode="decimal" value={malakInput} onChange={(e) => setMalakInput(e.target.value)} placeholder="5200" />
           </div>
           <button type="button" className={styles.saveBtn} onClick={handleSaveInitial}>
-            Save
+            {t(language, 'save')}
           </button>
         </div>
-      )}
+      ) : null}
 
       <div className={styles.metrics}>
-        <MetricCard label="Acc" value={fmt(acc)} subtitle="Current Account Balance" positive={false} negative={false} />
+        <MetricCard label="Acc" value={fmt(acc)} subtitle={t(language, 'cur_acc_bal')} positive={false} negative={false} />
         <MetricCard
           label="WIH"
           value={fmt(wih)}
-          subtitle={`Acc − Malak (${fmt(malakRemaining)})`}
+          subtitle={`${t(language, 'wih_sub')} (${fmt(malakRemaining)})`}
           positive={wih >= 0}
           negative={wih < 0}
         />
         <MetricCard
           label="R*"
           value={fmt(r)}
-          subtitle="WIH − Unpaid Bills"
+          subtitle={t(language, 'r_sub')}
           positive={r >= 0}
           negative={r < 0}
           highlight
         />
         <MetricCard
-          label="Daily"
+          label={t(language, 'daily')}
           value={dailyBudget}
-          subtitle={`${daysLeft} days left`}
+          subtitle={`${daysLeft} ${t(language, 'days_left')}`}
           positive={r >= 0}
           negative={r < 0}
         />
@@ -173,38 +172,38 @@ export default function Overview({ year, month, onMonthChange }) {
       <div className={styles.gridColumns}>
         <div className={styles.columnLeft}>
           <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Transactions</h2>
+            <h2 className={styles.sectionTitle}>{t(language, 'transactions')}</h2>
             <div className={styles.card}>
               <div className={styles.txHeader}>
                 <button type="button" className={styles.txCta} onClick={() => setShowTxForm(!showTxForm)}>
-                  {showTxForm ? 'Cancel' : '+ Add Transaction'}
+                  {showTxForm ? t(language, 'cancel') : t(language, 'add_tx')}
                 </button>
               </div>
 
               {showTxForm && (
                 <div className={styles.txForm}>
                   <div className={styles.formRow}>
-                    <label>Type</label>
+                    <label>{t(language, 'tx_type')}</label>
                     <select value={txType} onChange={e => setTxType(e.target.value)}>
-                      <option value="EXPENSE">Expense (- Acc)</option>
-                      <option value="INCOME">Income (+ Acc)</option>
-                      <option value="MALAK_SENT">Sent to Malak (- Acc, - Malak Pool)</option>
+                      <option value="EXPENSE">{t(language, 'type_expense')}</option>
+                      <option value="INCOME">{t(language, 'type_income')}</option>
+                      <option value="MALAK_SENT">{t(language, 'type_malak')}</option>
                     </select>
                   </div>
                   <div className={styles.formRow}>
-                    <label>Amount</label>
+                    <label>{t(language, 'tx_amount')}</label>
                     <input type="text" inputMode="decimal" value={txAmt} onChange={e => setTxAmt(e.target.value)} placeholder="0" />
                   </div>
                   <div className={styles.formRow}>
-                    <label>Description</label>
-                    <input type="text" value={txDesc} onChange={e => setTxDesc(e.target.value)} placeholder="e.g. Groceries" />
+                    <label>{t(language, 'tx_desc')}</label>
+                    <input type="text" value={txDesc} onChange={e => setTxDesc(e.target.value)} placeholder="..." />
                   </div>
-                  <button type="button" className={styles.saveBtn} onClick={handleAddTransaction}>Save Transaction</button>
+                  <button type="button" className={styles.saveBtn} onClick={handleAddTransaction}>{t(language, 'save_tx')}</button>
                 </div>
               )}
 
               {transactions.length === 0 ? (
-                <p className={styles.emptyHint}>No transactions logged this month.</p>
+                <p className={styles.emptyHint}>{t(language, 'no_tx')}</p>
               ) : (
                 <ul className={styles.txList}>
                   {transactions.slice().reverse().map(t => (

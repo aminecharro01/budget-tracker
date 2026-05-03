@@ -145,24 +145,23 @@
     width: 100%;
     min-height: auto;
     position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     padding: 1rem;
     border-right: none;
     border-bottom: 1px solid var(--border);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .brand {
-    margin-bottom: 0;
+    margin-bottom: 1rem;
   }
 
   .rCard {
     margin-bottom: 0;
-    flex: 1;
-    min-width: 140px;
-    margin-left: 1rem;
+    width: 100%;
+    margin-left: 0;
   }
 
   .nav {

@@ -10,11 +10,10 @@ import {
 } from 'recharts';
 import styles from './History.module.css';
 import { useBudget, fmt } from './BudgetContext';
-
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import { t } from './i18n';
 
 export default function History() {
-  const { computeMetrics } = useBudget();
+  const { computeMetrics, language } = useBudget();
 
   const today = new Date();
   const data = [];
@@ -26,9 +25,9 @@ export default function History() {
     
     if (!metrics.hasRecord) continue;
     
-    data.push({
+      data.push({
       key: `${y}-${m}`,
-      label: `${MONTHS[m]} ${y}`,
+      label: `${y}-${String(m + 1).padStart(2, '0')}`,
       acc: metrics.acc,
       malakRemaining: metrics.malakRemaining,
       wih: metrics.wih,
@@ -42,9 +41,9 @@ export default function History() {
     return (
       <div className={styles.wrap}>
         <div className={styles.header}>
-          <h1 className={styles.title}>History</h1>
+          <h1 className={styles.title}>{t(language, 'history')}</h1>
         </div>
-        <p className={styles.empty}>No historical data available.</p>
+        <p className={styles.empty}>{t(language, 'no_history')}</p>
       </div>
     );
   }
@@ -52,11 +51,11 @@ export default function History() {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <h1 className={styles.title}>History</h1>
+        <h1 className={styles.title}>{t(language, 'history')}</h1>
       </div>
 
       <div className={styles.chartCard}>
-        <h2 className={styles.chartTitle}>Balance trends (Last 12 months)</h2>
+        <h2 className={styles.chartTitle}>{t(language, 'balance_trends')}</h2>
         <div className={styles.chartWrap}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
@@ -86,9 +85,9 @@ export default function History() {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Month</th>
+                <th>{t(language, 'month')}</th>
                 <th>Acc</th>
-                <th>Malak Rem.</th>
+                <th>{t(language, 'savings_rem')}</th>
                 <th>WIH</th>
                 <th>K*</th>
                 <th>R*</th>

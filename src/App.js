@@ -3,6 +3,7 @@ import styles from './App.module.css';
 import Auth from './Auth';
 import { BudgetProvider, useBudget, fmt } from './BudgetContext';
 import AmbientBackground from './AmbientBackground';
+import { t } from './i18n';
 
 const Overview = lazy(() => import('./Overview'));
 const Bills = lazy(() => import('./Bills'));
@@ -39,7 +40,7 @@ function IconHistory() {
 }
 
 function MainApp() {
-  const { session, computeMetrics, signOut } = useBudget();
+  const { session, computeMetrics, signOut, language, setLanguage } = useBudget();
   const now = new Date();
   const [tab, setTab] = useState('overview');
   const [year, setYear] = useState(now.getFullYear());
@@ -81,15 +82,15 @@ function MainApp() {
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
           <span className={styles.logo}>₿</span>
-          <span className={styles.brandText}>Budget</span>
+          <span className={styles.brandText}>{t(language, 'budget')}</span>
         </div>
 
         <div className={`${styles.rCard} ${rPositive ? styles.rPositive : styles.rNegative}`}>
-          <div className={styles.rLabel}>R* (Real)</div>
+          <div className={styles.rLabel}>{t(language, 'r_star_real')}</div>
           <div className={styles.rValue} style={{ fontFamily: 'var(--mono)' }}>
             {fmt(r)}
           </div>
-          <div className={styles.rHint}>After Malak & K bills</div>
+          <div className={styles.rHint}>{t(language, 'r_star_hint')}</div>
         </div>
 
         <nav className={styles.nav}>
@@ -99,32 +100,41 @@ function MainApp() {
             onClick={() => setTab('overview')}
           >
             <IconOverview />
-            Overview
+            {t(language, 'nav_overview')}
           </button>
           <button type="button" className={tab === 'bills' ? styles.navBtnActive : styles.navBtn} onClick={() => setTab('bills')}>
             <IconBills />
-            Bills
+            {t(language, 'nav_bills')}
           </button>
           <button type="button" className={tab === 'history' ? styles.navBtnActive : styles.navBtn} onClick={() => setTab('history')}>
             <IconHistory />
-            History
+            {t(language, 'nav_history')}
           </button>
         </nav>
 
         <p className={styles.footer}>
-          Data synced to Cloud. <br/>
+          {t(language, 'synced_cloud')} <br/>
+          <select 
+            value={language} 
+            onChange={e => setLanguage(e.target.value)}
+            style={{background:'transparent', border:'1px solid var(--border)', borderRadius:'4px', color:'var(--text)', cursor:'pointer', marginTop:'0.5rem', padding:'0.2rem', fontSize:'0.75rem', width: '100%'}}
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ar">العربية</option>
+          </select>
           <button 
             onClick={toggleTheme} 
             style={{background:'transparent', border:'none', color:'var(--text)', cursor:'pointer', marginTop:'0.5rem', padding:0, fontSize:'0.8rem', fontWeight:600}}
           >
-            {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+            {theme === 'dark' ? t(language, 'light_mode') : t(language, 'dark_mode')}
           </button>
           <br/>
           <button 
             onClick={signOut} 
             style={{background:'transparent', border:'none', color:'var(--red)', cursor:'pointer', marginTop:'0.5rem', padding:0, fontSize:'0.8rem', fontWeight:600}}
           >
-            Sign Out
+            {t(language, 'sign_out')}
           </button>
         </p>
       </aside>
