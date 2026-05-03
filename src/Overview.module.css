@@ -1,0 +1,371 @@
+.wrap {
+  animation: slideDown 0.25s ease-out;
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.monthNav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.monthLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 10rem;
+}
+
+.iconBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn:hover {
+  background: var(--surface2);
+}
+
+.cta {
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--green);
+  color: #0f0f0f;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.cta:hover {
+  filter: brightness(1.05);
+}
+
+.formPanel {
+  background: var(--surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  animation: slideDown 0.2s ease-out;
+}
+
+.formRow {
+  margin-bottom: 1rem;
+}
+
+.formRow label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.fieldHint {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--hint);
+  line-height: 1.35;
+  margin: -0.15rem 0 0.45rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.formRow input {
+  width: 100%;
+  max-width: 280px;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+}
+
+.saveBtn {
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--green);
+  color: #0f0f0f;
+  font-weight: 600;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.metric {
+  background: var(--surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: 1rem;
+}
+
+.metricHighlight {
+  border-color: var(--border2);
+  box-shadow: 0 0 0 1px var(--border2);
+}
+
+.metricLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.metricValue {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.metricSub {
+  font-size: 0.7rem;
+  color: var(--hint);
+  margin-top: 0.35rem;
+}
+
+.section {
+  margin-bottom: 1.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin: 0 0 0.65rem;
+}
+
+.card {
+  background: var(--surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: 0.85rem 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.row:last-of-type {
+  border-bottom: none;
+}
+
+.rowLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rowLabel {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.rowLabelBold {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.rowVal {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.badgeK {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: var(--amber);
+  color: #0f0f0f;
+  font-family: var(--mono);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border2);
+  margin: 0.35rem 0;
+}
+
+.billCheck {
+  accent-color: var(--green);
+  cursor: pointer;
+  transform: scale(1.15);
+  margin-right: 0.15rem;
+}
+
+.gridColumns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .gridColumns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.warningBanner {
+  background: var(--amber);
+  color: #0f0f0f;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+.warningCritical {
+  background: var(--red);
+  color: #fff;
+}
+
+.txHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.txCta {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.txCta:hover {
+  background: rgba(62, 207, 142, 0.1);
+}
+
+.txForm {
+  background: var(--surface2);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  border: 1px solid var(--border2);
+}
+
+.txForm select {
+  width: 100%;
+  max-width: 280px;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border2);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.emptyHint {
+  font-size: 0.85rem;
+  color: var(--hint);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.txList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.txItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.txItem:last-child {
+  border-bottom: none;
+}
+
+.txInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.txDesc {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.txTypeBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+.badgeEXPENSE { background: var(--surface2); color: var(--muted); }
+.badgeINCOME { background: rgba(62, 207, 142, 0.2); color: var(--green); }
+.badgeMALAK_SENT { background: rgba(240, 106, 106, 0.2); color: var(--red); }
+
+.txRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.txAmount {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.txDel {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.3rem;
+}
+
+.txDel:hover {
+  color: var(--red);
+}
