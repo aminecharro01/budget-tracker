@@ -27,6 +27,19 @@
   font-size: 0.875rem;
 }
 
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
 .form {
   background: var(--surface);
   backdrop-filter: var(--glass-blur);

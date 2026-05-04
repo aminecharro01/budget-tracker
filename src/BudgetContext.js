@@ -19,11 +19,17 @@ export function BudgetProvider({ children }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [language, setLanguage] = useState(() => localStorage.getItem('budget_lang') || 'en');
+  const [theme, setTheme] = useState(() => localStorage.getItem('budget_theme') || 'dark');
   
   useEffect(() => {
     localStorage.setItem('budget_lang', language);
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   }, [language]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('budget_theme', theme);
+  }, [theme]);
 
   // Data State
   const [bills, setBills] = useState([]);
@@ -286,6 +292,8 @@ export function BudgetProvider({ children }) {
     loading,
     language,
     setLanguage,
+    theme,
+    setTheme,
     bills,
     records,
     transactions,
@@ -298,7 +306,7 @@ export function BudgetProvider({ children }) {
     getPreviousMalakRemaining,
     computeMetrics,
     signOut: () => supabase.auth.signOut()
-  }), [session, loading, language, bills, records, transactions, saveInitial, saveBill, deleteBill, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining, computeMetrics]);
+  }), [session, loading, language, theme, bills, records, transactions, saveInitial, saveBill, deleteBill, toggleBill, addTransaction, deleteTx, getPreviousMalakRemaining, computeMetrics]);
 
   return (
     <BudgetContext.Provider value={value}>

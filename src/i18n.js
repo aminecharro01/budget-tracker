@@ -54,7 +54,13 @@ const translations = {
     wih_sub: "Acc − Savings",
     r_sub: "WIH − Unpaid Bills",
     no_tx: "No transactions logged this month.",
-    close: "Close"
+    close: "Close",
+    nav_settings: "Settings",
+    account_info: "Account Info",
+    email: "Email",
+    appearance: "Appearance & Language",
+    theme: "Theme",
+    language: "Language"
   },
   fr: {
     nav_overview: "Aperçu",
@@ -111,7 +117,13 @@ const translations = {
     wih_sub: "C. Courant − Épargne",
     r_sub: "WIH − Factures Impayées",
     no_tx: "Aucune transaction enregistrée ce mois-ci.",
-    close: "Fermer"
+    close: "Fermer",
+    nav_settings: "Paramètres",
+    account_info: "Infos du compte",
+    email: "E-mail",
+    appearance: "Apparence et Langue",
+    theme: "Thème",
+    language: "Langue"
   },
   ar: {
     nav_overview: "نظرة عامة",
@@ -168,7 +180,13 @@ const translations = {
     wih_sub: "الرصيد - المدخرات",
     r_sub: "WIH - الفواتير غير المدفوعة",
     no_tx: "لم يتم تسجيل أي معاملات هذا الشهر.",
-    close: "إغلاق"
+    close: "إغلاق",
+    nav_settings: "الإعدادات",
+    account_info: "معلومات الحساب",
+    email: "البريد الإلكتروني",
+    appearance: "المظهر واللغة",
+    theme: "السمة",
+    language: "اللغة"
   }
 };
 

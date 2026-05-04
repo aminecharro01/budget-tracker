@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import styles from './Bills.module.css';
+import styles from './Settings.module.css';
 import { useBudget, fmt } from './BudgetContext';
 import { t } from './i18n';
 
-export default function Bills() {
-  const { bills, saveBill, deleteBill, language } = useBudget();
+export default function Settings() {
+  const { bills, saveBill, deleteBill, language, setLanguage, theme, setTheme, session, signOut } = useBudget();
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -24,11 +24,50 @@ export default function Bills() {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <h1 className={styles.title}>{t(language, 'recurring_bills')}</h1>
-        <button type="button" className={styles.cta} onClick={() => setShowForm(!showForm)}>
-          {showForm ? t(language, 'close') : t(language, 'add_bill')}
-        </button>
+        <h1 className={styles.title}>{t(language, 'nav_settings')}</h1>
       </div>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{t(language, 'account_info')}</h2>
+        <div className={styles.form}>
+          <div className={styles.field}>
+            <label>{t(language, 'email')}</label>
+            <input type="text" value={session?.user?.email || ''} disabled />
+          </div>
+          <button type="button" className={styles.save} onClick={signOut} style={{ background: 'var(--red)' }}>
+            {t(language, 'sign_out')}
+          </button>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>{t(language, 'appearance')}</h2>
+        <div className={styles.form}>
+          <div className={styles.field}>
+            <label>{t(language, 'language')}</label>
+            <select value={language} onChange={e => setLanguage(e.target.value)}>
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label>{t(language, 'theme')}</label>
+            <select value={theme} onChange={e => setTheme(e.target.value)}>
+              <option value="dark">{t(language, 'dark_mode')}</option>
+              <option value="light">{t(language, 'light_mode')}</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.header} style={{ marginBottom: '1rem' }}>
+          <h2 className={styles.sectionTitle} style={{ marginBottom: 0 }}>{t(language, 'recurring_bills')}</h2>
+          <button type="button" className={styles.cta} onClick={() => setShowForm(!showForm)}>
+            {showForm ? t(language, 'close') : t(language, 'add_bill')}
+          </button>
+        </div>
 
       {showForm && (
         <div className={styles.form}>
@@ -68,6 +107,7 @@ export default function Bills() {
           <strong style={{ fontFamily: 'var(--mono)' }}>{fmt(total)}</strong>
         </div>
       </div>
+      </section>
     </div>
   );
 }
