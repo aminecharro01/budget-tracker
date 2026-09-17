@@ -1,3 +1,5 @@
+![Awallet preview](docs/mockup.jpg)
+
 # Awallet (Budget Tracker)
 
 Awallet is a personal budget-tracking web app for logging recurring bills, monthly income/expense records, and visualizing spending trends. It's a single-page React app backed by Supabase (Postgres + Auth), installable as a PWA for offline/mobile use.
